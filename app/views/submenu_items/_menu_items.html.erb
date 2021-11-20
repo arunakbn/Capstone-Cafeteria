@@ -1,0 +1,83 @@
+<div class="container text-center ">
+    <% if flash[:alert] %>
+    <div class= "alert alert-danger ">
+            <%= flash[:alert] %>
+    </div>
+            <% flash.clear %>
+    <% elsif flash[:notice] %>
+    <div class= "alert alert-success ">
+            <%= flash[:notice] %>
+            <% flash.clear %>
+    </div>
+    <% end %>
+</div>
+
+
+
+
+<div class= "cards-box m-auto w-auto" id = "menu_category">
+    <p>
+        <button class="btn btn-dark"
+                        type="button"
+                        data-bs-toggle="collapse"
+                         data-bs-target= <%= "#" + "a" + menu_category_id.to_s %>
+                        aria-expanded="false"
+                        aria-controls=<%= "#" + "a" + menu_category_id.to_s %>
+        >
+            <%= menu_category_name %>
+        </button>
+    </p>
+
+<% menu_items.each do |menu_item| %>
+<% if menu_category_id  == menu_item.menu_category_id %>
+<div class="collapse card " id=<%=  "a" + menu_item.menu_category_id.to_s %>>
+        <p>
+            <button class="btn btn-warning"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target= <%="#"+ "b" + menu_item.id.to_s %>
+                            aria-expanded="false"
+                            aria-controls=<%=  "#" + "b" + menu_item.id.to_s   %>
+            >
+            <%= menu_item.menu_item_name %>
+            </button>
+        </p>
+</div>
+
+<% submenu_items.order(:price).each do | submenu_item|  %>
+ <% if menu_item.id == submenu_item.menu_item_id %>
+    <div class="collapse  menu_item card"
+            id=<%=    "b" + menu_item.id.to_s  %>
+    >
+                <div class="d-flex card-body flex-wrap">
+                                <div class="cards-content" >
+                                        <strong>
+                                            <p id="description" class= "text cards-description"  >
+                                                    <%=  submenu_item.description %>
+                                            </p>
+
+                                            <p  class="text  cards-description">
+                                                Amount : $  <span id="price"> <%= submenu_item.price %> </span>
+                                            </p>
+
+                                            <p class="cards-amount">
+                                                    <%= form_with  url: "/carts", class: "add-cart-form" do |form| %>
+                                                                <%= form.hidden_field :user_id, value: session[:current_user_id] %>
+                                                                <%= form.hidden_field :submenu_items_id, value:  submenu_item.id %>
+                                                                <%= form.hidden_field :submenu_items_description, value:  submenu_item.description %>
+                                                                <%= form.hidden_field :submenu_items_description, value:  submenu_item.description %>
+                                                                <%= form.label :Quantity, class:"mb-1" %>
+                                                                <%= form.number_field :quantity, class:"quantity", min:1, :required => 'required' %>
+                                                                <%= form.hidden_field :submenu_item_price, value: submenu_item.price %>
+                                                                <%=  form.submit "Add", class: "btn btn-success" %>
+                                                    <% end %>
+                                            </p>
+                                        </strong>
+                                </div>
+                </div>
+    </div>
+<% end %>
+<% end %>
+<% end %>
+<% end %>
+</div>

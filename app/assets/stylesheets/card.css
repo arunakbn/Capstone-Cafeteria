@@ -1,0 +1,50 @@
+
+.cards-box{
+  max-width: 1130px;
+}
+.cards {
+  display: flex;
+  margin:2.5rem;
+  height:400px;
+  border-radius: 1.25rem;
+
+}
+
+.cards-image{
+  margin:2rem;
+  width:300px;
+  height:300px;
+}
+
+.cards-description{
+  margin-top: 1.5rem;
+  margin-left:2rem;
+  width: 300px;
+}
+
+ .cards-amount{
+ text-align: center;
+}
+
+.add-cart-form{
+  margin-left: 2rem;
+}
+.menu_item{
+  max-width: min-content;
+}
+
+.quantity{
+  width:5rem;
+}
+
+.checkout{
+  margin-right:2rem;
+}
+
+.carts{
+    margin:0 auto;
+    max-width:max-content;
+    border: 1px gray #000000;
+    border-radius:5px;
+
+}
